@@ -20,11 +20,16 @@ async function carregarClientes() {
       const li = document.createElement('li');
       li.innerHTML = `
         <span>${cliente.nome}</span>
-        <a href="editar-cliente.html?id=${cliente._id}">✏️</a>
+        <div class="actions">
+          <a href="dados-cliente.html?id=${cliente._id}" title="Selecionar">✅</a>
+          <a href="editar-cliente.html?id=${cliente._id}" title="Editar">✏️</a>
+          <button title="Excluir" onclick="excluirCliente('${cliente._id}')">❌</button>
+        </div>
       `;
       lista.appendChild(li);
     });
 
+    // Filtro de pesquisa
     document.getElementById('pesquisa').addEventListener('input', (e) => {
       const termo = e.target.value.toLowerCase();
       const itens = lista.querySelectorAll('li');
@@ -36,6 +41,29 @@ async function carregarClientes() {
 
   } catch (error) {
     console.error('Erro ao carregar clientes:', error);
+    alert('Erro de conexão com o servidor');
+  }
+}
+
+async function excluirCliente(id) {
+  const confirmacao = confirm('Tem certeza que deseja excluir este cliente?');
+  if (!confirmacao) return;
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
+      method: 'DELETE'
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('Cliente excluído com sucesso!');
+      carregarClientes(); // Atualiza a lista
+    } else {
+      alert(result.message || 'Erro ao excluir cliente');
+    }
+  } catch (error) {
+    console.error('Erro ao excluir cliente:', error);
     alert('Erro de conexão com o servidor');
   }
 }

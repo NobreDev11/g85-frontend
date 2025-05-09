@@ -52,16 +52,31 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
   }
   
   li span {
     font-weight: bold;
+    flex: 1;
   }
   
-  li a {
-    text-decoration: none;
-    font-size: 14px;
+  li .actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  li .actions a,
+  li .actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
     color: #c79100;
+    padding: 0;
+  }
+  
+  li .actions button:hover {
+    color: red;
   }
   
   .voltar {
