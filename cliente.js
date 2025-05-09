@@ -16,8 +16,9 @@ document.getElementById('form-cliente').addEventListener('submit', async functio
 
     const result = await response.json();
     if (response.ok) {
+      const clienteId = result.cliente._id;
       alert('Cliente cadastrado com sucesso!');
-      window.location.href = 'checklist.html';
+      window.location.href = `dados-cliente.html?id=${clienteId}`;
     } else {
       alert(result.message || 'Erro no cadastro');
     }
