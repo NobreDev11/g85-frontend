@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #dcdcdc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    background-color: #dcdcdc;
+    padding: 20px;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .header {
+    background: #ffc107;
+    padding: 40px 0 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .logo {
+    height: 100px;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    color: #000;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  input {
+    padding: 12px;
+    border: none;
+    border-bottom: 2px solid #000;
+    background: transparent;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .extra-options {
+    text-align: right;
+    font-size: 12px;
+  }
+  
+  .btn-acessar {
+    background-color: #ffc107;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+  
+  .divider {
+    margin: 15px 0;
+    font-size: 14px;
+  }
+  
+  .btn-google {
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  
+  .register {
+    margin-top: 15px;
+    font-size: 13px;
+  }
+  
+  .register a {
+    text-decoration: underline;
+    color: #000;
+  }
+  
