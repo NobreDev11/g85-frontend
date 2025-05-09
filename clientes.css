@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #dcdcdc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .logo {
+    height: 60px;
+    margin-top: 20px;
+  }
+  
+  h2 {
+    margin: 20px 0;
+    font-size: 20px;
+    color: #000;
+  }
+  
+  input#pesquisa {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  li {
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  li span {
+    font-weight: bold;
+  }
+  
+  li a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #c79100;
+  }
+  
+  .voltar {
+    display: inline-block;
+    margin-top: 20px;
+    color: #c79100;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
