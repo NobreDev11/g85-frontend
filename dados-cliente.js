@@ -45,10 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnSalvar.style.display = 'block';
   });
 
-  // Botão Confirmar → sem edição
+  // Botão Confirmar → redireciona para veiculos.html
   btnConfirmar.addEventListener('click', () => {
-    alert('Cliente confirmado!');
-    window.location.href = 'clientes.html';
+    window.location.href = `veiculos.html?id=${id}`;
   });
 
   // Botão Salvar Alterações
