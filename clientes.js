@@ -10,7 +10,6 @@ async function carregarClientes() {
       return;
     }
 
-    // Ordenar alfabeticamente
     clientes.sort((a, b) => a.nome.localeCompare(b.nome));
 
     const lista = document.getElementById('lista-clientes');
@@ -22,14 +21,12 @@ async function carregarClientes() {
         <span>${cliente.nome}</span>
         <div class="actions">
           <a href="dados-cliente.html?id=${cliente._id}" title="Selecionar">✅</a>
-          <a href="editar-cliente.html?id=${cliente._id}" title="Editar">✏️</a>
           <button title="Excluir" onclick="excluirCliente('${cliente._id}')">❌</button>
         </div>
       `;
       lista.appendChild(li);
     });
 
-    // Filtro de pesquisa
     document.getElementById('pesquisa').addEventListener('input', (e) => {
       const termo = e.target.value.toLowerCase();
       const itens = lista.querySelectorAll('li');
@@ -58,7 +55,7 @@ async function excluirCliente(id) {
 
     if (response.ok) {
       alert('Cliente excluído com sucesso!');
-      carregarClientes(); // Atualiza a lista
+      carregarClientes();
     } else {
       alert(result.message || 'Erro ao excluir cliente');
     }
