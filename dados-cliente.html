@@ -14,30 +14,24 @@
 
     <h2>Dados do Cliente</h2>
 
-    <div class="dados">
+    <form id="form-edicao">
       <label>
         <span>NOME DO CLIENTE</span>
-        <p id="nomeCliente">---</p>
+        <input type="text" id="nomeCliente" required />
       </label>
 
       <label>
         <span>EMAIL</span>
-        <p id="emailCliente">---</p>
+        <input type="email" id="emailCliente" required />
       </label>
 
       <label>
         <span>CONTATO</span>
-        <p id="telefoneCliente">---</p>
+        <input type="tel" id="telefoneCliente" required />
       </label>
-    </div>
 
-    <div class="edit-icon">
-      <a href="editar-cliente.html">
-        <img src="https://www.svgrepo.com/show/512273/edit-3.svg" alt="Editar" />
-      </a>
-    </div>
-
-    <button class="btn-yellow">Confirmar</button>
+      <button type="submit" class="btn-yellow">Salvar Alterações</button>
+    </form>
 
     <footer>
       <a href="clientes.html" class="voltar">Voltar</a>

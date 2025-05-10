@@ -6,10 +6,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (!id) {
     alert('ID do cliente não informado.');
-    window.location.href = 'checklist.html';
+    window.location.href = 'clientes.html';
     return;
   }
 
+  // Preenche os campos com dados reais
   try {
     const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`);
     const cliente = await response.json();
@@ -19,11 +20,40 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    document.getElementById('nomeCliente').textContent = cliente.nome || '-';
-    document.getElementById('emailCliente').textContent = cliente.email || '-';
-    document.getElementById('telefoneCliente').textContent = cliente.telefone || '-';
+    document.getElementById('nomeCliente').value = cliente.nome || '';
+    document.getElementById('emailCliente').value = cliente.email || '';
+    document.getElementById('telefoneCliente').value = cliente.telefone || '';
   } catch (error) {
-    console.error('Erro ao buscar cliente:', error);
+    console.error('Erro ao carregar cliente:', error);
     alert('Erro de conexão com o servidor');
   }
+
+  // Enviar edição
+  document.getElementById('form-edicao').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const nome = document.getElementById('nomeCliente').value.trim();
+    const email = document.getElementById('emailCliente').value.trim();
+    const telefone = document.getElementById('telefoneCliente').value.trim();
+
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, telefone })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Dados atualizados com sucesso!');
+        window.location.href = `dados-cliente.html?id=${id}`;
+      } else {
+        alert(result.message || 'Erro ao atualizar cliente');
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar cliente:', error);
+      alert('Erro de conexão com o servidor');
+    }
+  });
 });
