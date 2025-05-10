@@ -55,14 +55,24 @@ input {
   outline: none;
 }
 
+input[readonly] {
+  color: #444;
+}
+
 .btn-yellow {
   background-color: #ffc107;
   border: none;
-  padding: 15px;
+  padding: 12px;
   font-weight: bold;
   border-radius: 30px;
   width: 100%;
   cursor: pointer;
+}
+
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 footer {

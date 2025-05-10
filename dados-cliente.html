@@ -17,20 +17,24 @@
     <form id="form-edicao">
       <label>
         <span>NOME DO CLIENTE</span>
-        <input type="text" id="nomeCliente" required />
+        <input type="text" id="nomeCliente" readonly required />
       </label>
 
       <label>
         <span>EMAIL</span>
-        <input type="email" id="emailCliente" required />
+        <input type="email" id="emailCliente" readonly required />
       </label>
 
       <label>
         <span>CONTATO</span>
-        <input type="tel" id="telefoneCliente" required />
+        <input type="tel" id="telefoneCliente" readonly required />
       </label>
 
-      <button type="submit" class="btn-yellow">Salvar Alterações</button>
+      <div class="botoes">
+        <button type="button" id="btn-confirmar" class="btn-yellow">Confirmar</button>
+        <button type="button" id="btn-editar" class="btn-yellow">Editar</button>
+        <button type="submit" id="btn-salvar" class="btn-yellow" style="display: none;">Salvar Alterações</button>
+      </div>
     </form>
 
     <footer>
