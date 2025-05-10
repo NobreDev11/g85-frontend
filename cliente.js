@@ -1,43 +1,30 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
 
-async function carregarClientes() {
+document.getElementById('form-cliente').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+
   try {
-    const response = await fetch(`${BACKEND_URL}/api/clientes`);
-    const clientes = await response.json();
+    const response = await fetch(`${BACKEND_URL}/api/clientes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, telefone })
+    });
 
-    if (!response.ok) {
-      alert('Erro ao buscar clientes');
-      return;
+    const result = await response.json();
+
+    if (response.ok) {
+      const clienteId = result.cliente._id;
+      alert('Cliente cadastrado com sucesso!');
+      window.location.href = `dados-cliente.html?id=${clienteId}`;
+    } else {
+      alert(result.message || 'Erro no cadastro');
     }
-
-    // Ordenar alfabeticamente
-    clientes.sort((a, b) => a.nome.localeCompare(b.nome));
-
-    const lista = document.getElementById('lista-clientes');
-    lista.innerHTML = '';
-
-    clientes.forEach(cliente => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <span>${cliente.nome}</span>
-        <a href="editar-cliente.html?id=${cliente._id}">✏️</a>
-      `;
-      lista.appendChild(li);
-    });
-
-    document.getElementById('pesquisa').addEventListener('input', (e) => {
-      const termo = e.target.value.toLowerCase();
-      const itens = lista.querySelectorAll('li');
-      itens.forEach(item => {
-        const nome = item.querySelector('span').textContent.toLowerCase();
-        item.style.display = nome.includes(termo) ? 'flex' : 'none';
-      });
-    });
-
   } catch (error) {
-    console.error('Erro ao carregar clientes:', error);
+    console.error('Erro ao cadastrar cliente:', error);
     alert('Erro de conexão com o servidor');
   }
-}
-
-document.addEventListener('DOMContentLoaded', carregarClientes);
+});
