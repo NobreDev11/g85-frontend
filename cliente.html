@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clientes Cadastrados - G85 Studio</title>
-  <link rel="stylesheet" href="clientes.css" />
+  <title>Novo Cliente - G85 Studio</title>
+  <link rel="stylesheet" href="cliente.css" />
 </head>
 <body>
   <div class="container">
@@ -12,17 +12,21 @@
       <img src="logo.png" alt="Logo G85 Studio" class="logo" />
     </header>
 
-    <h2>Clientes Cadastrados</h2>
+    <h2>Novo Cliente</h2>
 
-    <input type="text" id="pesquisa" placeholder="Pesquisar cliente..."/>
+    <form id="form-cliente">
+      <input type="text" id="nome" placeholder="Nome Completo" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="tel" id="telefone" placeholder="Telefone" required />
 
-    <ul id="lista-clientes"></ul>
+      <button type="submit" class="btn-yellow">Cadastrar</button>
+    </form>
 
     <footer>
       <a href="checklist.html" class="voltar">Voltar</a>
     </footer>
   </div>
 
-  <script src="clientes.js"></script>
+  <script src="cliente.js"></script>
 </body>
 </html>

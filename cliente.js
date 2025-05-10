@@ -15,7 +15,6 @@ document.getElementById('form-cliente').addEventListener('submit', async functio
     });
 
     const result = await response.json();
-
     if (response.ok) {
       const clienteId = result.cliente._id;
       alert('Cliente cadastrado com sucesso!');
