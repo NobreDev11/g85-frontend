@@ -4,17 +4,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   const params = new URLSearchParams(window.location.search);
   const clienteId = params.get('id');
 
+  const lista = document.getElementById('lista-veiculos');
+  const voltarLink = document.getElementById('link-voltar');
+
   if (!clienteId) {
     alert('Cliente não identificado.');
     window.location.href = 'clientes.html';
     return;
   }
 
+  // Corrige o botão voltar mantendo o ID do cliente
+  if (voltarLink) {
+    voltarLink.href = `dados-cliente.html?id=${clienteId}`;
+  }
+
   try {
     const response = await fetch(`${BACKEND_URL}/api/veiculos?cliente=${clienteId}`);
     const veiculos = await response.json();
 
-    const lista = document.getElementById('lista-veiculos');
     lista.innerHTML = '';
 
     if (Array.isArray(veiculos) && veiculos.length > 0) {
@@ -43,5 +50,5 @@ function cadastrarVeiculo() {
 
 function confirmar() {
   alert('Confirmação realizada!');
-  // Redirecionar para próxima etapa aqui se desejado
+  // Redirecionar para próxima etapa aqui se necessário
 }
