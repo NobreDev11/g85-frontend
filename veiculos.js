@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       veiculos.forEach((v) => {
         const li = document.createElement('li');
         li.innerHTML = `
-          <label style="display: flex; align-items: center; justify-content: space-between;">
-            <span>
+          <label>
+            <span style="display: flex; align-items: center;">
               <input type="radio" name="veiculoSelecionado" value="${v._id}" />
               ${v.modelo || 'Veículo'}
             </span>
-            <button type="button" onclick="editarVeiculo('${v._id}', '${clienteId}')">☰</button>
+            <button type="button" onclick="editarVeiculo('${v._id}', '${clienteId}')">✏️</button>
           </label>
         `;
         lista.appendChild(li);
@@ -59,8 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const veiculoId = selecionado.value;
-
-    // Redirecionar para a próxima etapa do serviço
     window.location.href = `servico.html?id=${veiculoId}`;
   });
 });

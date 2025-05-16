@@ -1,99 +1,121 @@
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #e6e6e6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .container {
-    background: #fff;
-    padding: 30px 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .logo {
-    height: 60px;
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    color: #222;
-    margin-bottom: 20px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-  }
-  
-  li {
-    background: #f9f9f9;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-  }
-  
-  li i {
-    font-size: 18px;
-  }
-  
-  .botoes {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .btn-yellow, .btn-gray {
-    padding: 12px;
-    font-weight: bold;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-  }
-  
-  .btn-yellow {
-    background-color: #ffc107;
-    color: #000;
-  }
-  
-  .btn-yellow:hover {
-    background-color: #e0ac00;
-    transform: scale(1.03);
-  }
-  
-  .btn-gray {
-    background-color: #e0e0e0;
-    color: #444;
-  }
-  
-  .btn-gray:hover {
-    background-color: #d0d0d0;
-    transform: scale(1.03);
-  }
-  
-  footer {
-    margin-top: 20px;
-    text-align: right;
-  }
-  
-  .voltar {
-    color: #c79100;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.logo {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+li {
+  background: #f9f9f9;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+li input[type="radio"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+li button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+li button:hover {
+  color: #ffc107;
+}
+
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-yellow, .btn-gray {
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-yellow {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-yellow:hover {
+  background-color: #e0ac00;
+  transform: scale(1.03);
+}
+
+.btn-gray {
+  background-color: #e0e0e0;
+  color: #444;
+}
+
+.btn-gray:hover {
+  background-color: #d0d0d0;
+  transform: scale(1.03);
+}
+
+footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.voltar {
+  color: #c79100;
+  font-weight: bold;
+  text-decoration: none;
+}
