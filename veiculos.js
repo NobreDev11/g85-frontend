@@ -48,9 +48,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function selecionarVeiculo(liSelecionado) {
-  document.querySelectorAll('#lista-veiculos li').forEach((li) => {
+  const todos = document.querySelectorAll('#lista-veiculos li');
+
+  todos.forEach((li) => {
     li.classList.remove('selecionado');
   });
+
   liSelecionado.classList.add('selecionado');
 }
 
