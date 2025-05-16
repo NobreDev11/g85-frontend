@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const previewImg = document.getElementById('preview');
   const voltarLink = document.getElementById('btn-voltar');
 
-  voltarLink.href = `inspecao.html?id=${veiculoId}&voltar=1`;
+  // ✅ Corrigido: Voltar leva para página de veículos com ID
+  voltarLink.href = `veiculos.html?id=${veiculoId}`;
 
   // Preenche dados se vier do voltar
   const dadosSalvos = sessionStorage.getItem('dadosServico');
