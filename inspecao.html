@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspeção Primária - G85 Studio</title>
+  <link rel="stylesheet" href="inspecao.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Logo G85" class="logo">
+    </header>
+
+    <h2>Inspeção Primária</h2>
+
+    <form id="form-inspecao">
+      <div class="checklist">
+        <label><input type="checkbox" name="itens" value="Sistema de Alarme"> Sistema de Alarme</label>
+        <label><input type="checkbox" name="itens" value="Corta Corrente"> Corta Corrente</label>
+        <label><input type="checkbox" name="itens" value="Luzes de Alerta do Painel"> Luzes de Alerta do Painel</label>
+        <label><input type="checkbox" name="itens" value="Chave de Roda"> Chave de Roda</label>
+        <label><input type="checkbox" name="itens" value="Triângulo"> Triângulo</label>
+        <label><input type="checkbox" name="itens" value="Pneu de Estepe"> Pneu de Estepe</label>
+        <label><input type="checkbox" name="itens" value="Macaco"> Macaco</label>
+        <label><input type="checkbox" name="itens" value="Tapetes"> Tapetes</label>
+        <label><input type="checkbox" name="itens" value="Vidro Elétrico"> Vidro Elétrico</label>
+        <label><input type="checkbox" name="itens" value="Película nos Vidros"> Película nos Vidros</label>
+        <label><input type="checkbox" name="itens" value="Extintor de Incêndio"> Extintor de Incêndio</label>
+        <label><input type="checkbox" name="itens" value="Farois"> Farois</label>
+        <label><input type="checkbox" name="itens" value="Setas"> Setas</label>
+        <label><input type="checkbox" name="itens" value="Pisca Alerta"> Pisca Alerta</label>
+        <label><input type="checkbox" name="itens" value="Lanterna Traseira"> Lanterna Traseira</label>
+      </div>
+
+      <textarea id="observacao" placeholder="Observação"></textarea>
+
+      <button type="submit" class="btn-yellow">CONFIRMAR</button>
+    </form>
+
+    <footer>
+      <a id="btn-voltar" class="voltar">Voltar</a>
+    </footer>
+  </div>
+
+  <script src="inspecao.js"></script>
+</body>
+</html>
