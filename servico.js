@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (res.ok) {
         alert('Serviço registrado com sucesso!');
-        window.location.href = `veiculos.html?id=${veiculoId}`;
+        // ✅ Redirecionamento correto para a página de inspeção
+        window.location.href = `inspecao.html?id=${veiculoId}`;
       } else {
         alert(result.message || 'Erro ao salvar serviço.');
       }
