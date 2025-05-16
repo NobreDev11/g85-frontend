@@ -15,9 +15,9 @@
     <h2>Cadastrar Novo Usuário</h2>
 
     <form id="register-form">
-      <input type="text" placeholder="Nome completo" required />
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Senha" required />
+      <input type="text" id="nome" placeholder="Nome completo" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="senha" placeholder="Senha" required />
       <button type="submit" class="btn-yellow">Cadastrar</button>
     </form>
 
@@ -25,5 +25,37 @@
       <a href="index.html" class="voltar">Voltar</a>
     </footer>
   </div>
+
+  <script>
+    const BACKEND_URL = 'https://g85-backend.onrender.com';
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, email, password: senha })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Usuário cadastrado com sucesso!');
+          window.location.href = 'index.html';
+        } else {
+          alert(result.message || 'Erro ao cadastrar usuário.');
+        }
+      } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+        alert('Erro de conexão com o servidor.');
+      }
+    });
+  </script>
 </body>
 </html>

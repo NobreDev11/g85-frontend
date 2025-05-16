@@ -14,9 +14,9 @@
 
     <h2>Login</h2>
 
-    <form onsubmit="event.preventDefault(); window.location.href='home.html';">
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Senha" required />
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="senha" placeholder="Senha" required />
       <button type="submit" class="btn-yellow">Entrar</button>
     </form>
 
@@ -24,5 +24,35 @@
       <button class="btn-gray" onclick="window.location.href='register.html'">Cadastrar Usuário</button>
     </div>
   </div>
+
+  <script>
+    const BACKEND_URL = 'https://g85-backend.onrender.com';
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: senha })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem('usuarioNome', result.nome || 'Usuário');
+          window.location.href = 'home.html';
+        } else {
+          alert(result.message || 'Login inválido.');
+        }
+      } catch (error) {
+        console.error('Erro de conexão:', error);
+        alert('Erro de conexão com o servidor.');
+      }
+    });
+  </script>
 </body>
 </html>

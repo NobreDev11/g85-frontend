@@ -12,7 +12,7 @@
       <img src="logo.png" alt="Logo G85 Studio" class="logo" />
     </header>
 
-    <h2>Bem-vindo ao G85 Studio</h2>
+    <h2 id="saudacao">Bem-vindo ao G85 Studio</h2>
 
     <div class="botoes">
       <button class="btn-yellow" onclick="window.location.href='checklist.html'">Check List de Recebimento</button>
@@ -23,5 +23,12 @@
       <a href="index.html" class="voltar">Sair</a>
     </footer>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nome = localStorage.getItem('usuarioNome') || 'Usuário';
+      document.getElementById('saudacao').textContent = `Bem-vindo, ${nome}.`;
+    });
+  </script>
 </body>
 </html>

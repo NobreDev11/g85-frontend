@@ -3,11 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clientes - G85 Studio</title>
+  <title>Clientes Cadastrados - G85 Studio</title>
+  <link rel="stylesheet" href="clientes.css" />
 </head>
 <body>
-  <h1>Lista de Clientes</h1>
-  <div id="lista-clientes"></div>
-  <script src="assets/js/clientes.js"></script>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Logo G85" class="logo" />
+    </header>
+
+    <h2>Clientes Cadastrados</h2>
+
+    <input type="text" id="buscaCliente" placeholder="Pesquisar cliente..." />
+
+    <ul id="lista-clientes"></ul>
+
+    <footer>
+      <a href="checklist.html" class="voltar">Voltar</a>
+    </footer>
+  </div>
+
+  <script src="clientes.js"></script>
 </body>
 </html>
