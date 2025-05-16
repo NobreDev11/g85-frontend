@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (res.ok) {
         sessionStorage.removeItem(STORAGE_KEY);
         alert('Inspeção salva com sucesso!');
-        window.location.href = `veiculos.html?id=${veiculoId}`;
+        window.location.href = `avarias.html?id=${veiculoId}`;
       } else {
         alert(result.message || 'Erro ao salvar inspeção.');
       }
