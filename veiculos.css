@@ -47,8 +47,9 @@ li {
 }
 
 li.selecionado {
-  background-color: #ffc107;
+  background-color: #fff4c2;
 }
+
 
 li h3 {
   margin: 0;
@@ -59,7 +60,7 @@ li h3 {
 
 li .info {
   font-size: 13px;
-  color: #666;
+  color: #444;
   margin-top: 5px;
   display: none;
 }
@@ -86,7 +87,7 @@ li .acoes button {
 }
 
 li .acoes button:hover {
-  color: #ffc107;
+  color: #000;
 }
 
 .botoes {
