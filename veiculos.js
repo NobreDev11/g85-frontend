@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const lista = document.getElementById('lista-veiculos');
   const voltarLink = document.getElementById('link-voltar');
+  const formVeiculos = document.getElementById('form-veiculos');
 
   if (!clienteId) {
     alert('Cliente não identificado.');
@@ -13,7 +14,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // Corrige o botão voltar mantendo o ID do cliente
   if (voltarLink) {
     voltarLink.href = `dados-cliente.html?id=${clienteId}`;
   }
@@ -25,9 +25,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     lista.innerHTML = '';
 
     if (Array.isArray(veiculos) && veiculos.length > 0) {
-      veiculos.forEach((v, i) => {
+      veiculos.forEach((v) => {
         const li = document.createElement('li');
-        li.innerHTML = `Veículo 0${i + 1} <i>☰</i>`;
+        li.innerHTML = `
+          <label style="display: flex; align-items: center; justify-content: space-between;">
+            <span>
+              <input type="radio" name="veiculoSelecionado" value="${v._id}" />
+              ${v.modelo || 'Veículo'}
+            </span>
+            <button type="button" onclick="editarVeiculo('${v._id}', '${clienteId}')">☰</button>
+          </label>
+        `;
         lista.appendChild(li);
       });
     } else {
@@ -35,11 +43,26 @@ document.addEventListener('DOMContentLoaded', async () => {
       li.textContent = 'Nenhum veículo cadastrado.';
       lista.appendChild(li);
     }
-
   } catch (err) {
     console.error('Erro ao carregar veículos:', err);
     alert('Erro ao carregar veículos.');
   }
+
+  formVeiculos.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const selecionado = document.querySelector('input[name="veiculoSelecionado"]:checked');
+
+    if (!selecionado) {
+      alert('Selecione um veículo para continuar.');
+      return;
+    }
+
+    const veiculoId = selecionado.value;
+
+    // Redirecionar para a próxima etapa do serviço
+    window.location.href = `servico.html?id=${veiculoId}`;
+  });
 });
 
 function cadastrarVeiculo() {
@@ -48,7 +71,6 @@ function cadastrarVeiculo() {
   window.location.href = `cadastrar-veiculo.html?id=${clienteId}`;
 }
 
-function confirmar() {
-  alert('Confirmação realizada!');
-  // Redirecionar para próxima etapa aqui se necessário
+function editarVeiculo(veiculoId, clienteId) {
+  window.location.href = `editar-veiculo.html?id=${veiculoId}&cliente=${clienteId}`;
 }
