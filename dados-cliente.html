@@ -1,47 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dados do Cliente - G85 Studio</title>
-  <link rel="stylesheet" href="dados-cliente.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dados do Cliente</title>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="logo.png" alt="Logo G85 Studio" class="logo" />
-    </header>
-
-    <h2>Dados do Cliente</h2>
-
-    <form id="form-edicao">
-      <label>
-        <span>NOME DO CLIENTE</span>
-        <input type="text" id="nomeCliente" readonly required />
-      </label>
-
-      <label>
-        <span>EMAIL</span>
-        <input type="email" id="emailCliente" readonly required />
-      </label>
-
-      <label>
-        <span>CONTATO</span>
-        <input type="tel" id="telefoneCliente" readonly required />
-      </label>
-
-      <div class="botoes">
-        <button type="button" id="btn-confirmar" class="btn-yellow">Confirmar</button>
-        <button type="button" id="btn-editar" class="btn-yellow">Editar</button>
-        <button type="submit" id="btn-salvar" class="btn-yellow" style="display: none;">Salvar Alterações</button>
-      </div>
-    </form>
-
-    <footer>
-      <a href="clientes.html" class="voltar">Voltar</a>
-    </footer>
-  </div>
-
-  <script src="dados-cliente.js"></script>
+  <h1>Dados do Cliente</h1>
+  <div id="dados-cliente"></div>
+  <script src="assets/js/dados-cliente.js"></script>
 </body>
 </html>

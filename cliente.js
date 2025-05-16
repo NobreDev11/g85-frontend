@@ -1,29 +1,22 @@
-const BACKEND_URL = 'https://g85-backend.onrender.com';
+document.addEventListener('DOMContentLoaded', () => {
+  const clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+  const container = document.getElementById('lista-clientes');
 
-document.getElementById('form-cliente').addEventListener('submit', async function (e) {
-  e.preventDefault();
-
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const telefone = document.getElementById('telefone').value.trim();
-
-  try {
-    const response = await fetch(`${BACKEND_URL}/api/clientes`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, email, telefone })
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      const clienteId = result.cliente._id;
-      alert('Cliente cadastrado com sucesso!');
-      window.location.href = `dados-cliente.html?id=${clienteId}`;
-    } else {
-      alert(result.message || 'Erro no cadastro');
-    }
-  } catch (error) {
-    console.error('Erro ao cadastrar cliente:', error);
-    alert('Erro de conexão com o servidor');
+  if (clientes.length === 0) {
+    container.innerHTML = '<p>Nenhum cliente cadastrado.</p>';
+    return;
   }
+
+  clientes.forEach(cliente => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <strong>${cliente.nome}</strong><br>
+      <button onclick="acessarCliente('${cliente.id}')">Acessar</button>
+    `;
+    container.appendChild(div);
+  });
 });
+
+function acessarCliente(id) {
+  window.location.href = `dados-cliente.html?id=${id}`;
+}
