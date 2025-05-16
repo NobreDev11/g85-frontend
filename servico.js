@@ -18,7 +18,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const previewImg = document.getElementById('preview');
   const voltarLink = document.getElementById('btn-voltar');
 
-  voltarLink.href = `veiculos.html?id=${veiculoId}`;
+  voltarLink.href = `inspecao.html?id=${veiculoId}&voltar=1`;
+
+  // Preenche dados se vier do voltar
+  const dadosSalvos = sessionStorage.getItem('dadosServico');
+  if (dadosSalvos) {
+    const dados = JSON.parse(dadosSalvos);
+    if (dados.veiculo === veiculoId) {
+      kmInput.value = dados.km || '';
+      if (dados.imagem) {
+        previewImg.src = dados.imagem;
+        previewImg.style.display = 'block';
+      }
+    }
+  }
 
   try {
     const res = await fetch(`${BACKEND_URL}/api/veiculos/${veiculoId}`);
@@ -73,8 +86,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const result = await res.json();
 
       if (res.ok) {
+        sessionStorage.setItem('dadosServico', JSON.stringify({ veiculo: veiculoId, km, imagem: imagemBase64 }));
         alert('Serviço registrado com sucesso!');
-        // ✅ Redirecionamento correto para a página de inspeção
         window.location.href = `inspecao.html?id=${veiculoId}`;
       } else {
         alert(result.message || 'Erro ao salvar serviço.');
