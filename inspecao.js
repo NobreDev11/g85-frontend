@@ -14,15 +14,42 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = `servico.html?id=${veiculoId}`;
   });
 
+  // Observação por item
+  const icones = document.querySelectorAll('.icone-observacao');
+  icones.forEach(icone => {
+    const item = icone.dataset.item;
+    const textarea = document.querySelector(`.obs-item[data-item="${item}"]`);
+
+    icone.addEventListener('click', () => {
+      if (textarea.style.display === 'none') {
+        textarea.style.display = 'block';
+        textarea.focus();
+      } else if (!textarea.value.trim()) {
+        textarea.style.display = 'none';
+      }
+    });
+
+    if (textarea.value.trim()) {
+      textarea.style.display = 'block';
+    }
+  });
+
   document.getElementById('form-inspecao').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const checkboxes = document.querySelectorAll('input[name="itens"]:checked');
     const itensSelecionados = Array.from(checkboxes).map(cb => cb.value);
-    const observacao = document.getElementById('observacao').value.trim();
+    const observacaoGeral = document.getElementById('observacao').value.trim();
 
-    if (itensSelecionados.length === 0 && !observacao) {
-      alert('Selecione pelo menos um item ou escreva uma observação.');
+    const observacoesExtras = {};
+    document.querySelectorAll('.obs-item').forEach(textarea => {
+      const key = textarea.dataset.item;
+      const valor = textarea.value.trim();
+      if (valor) observacoesExtras[key] = valor;
+    });
+
+    if (itensSelecionados.length === 0 && !observacaoGeral && Object.keys(observacoesExtras).length === 0) {
+      alert('Preencha pelo menos um item ou observação.');
       return;
     }
 
@@ -33,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
           veiculo: veiculoId,
           itens: itensSelecionados,
-          observacao
+          observacao: observacaoGeral,
+          extras: observacoesExtras
         })
       });
 

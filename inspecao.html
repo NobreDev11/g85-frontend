@@ -16,24 +16,28 @@
 
     <form id="form-inspecao">
       <div class="checklist">
-        <label><input type="checkbox" name="itens" value="Sistema de Alarme"> Sistema de Alarme</label>
-        <label><input type="checkbox" name="itens" value="Corta Corrente"> Corta Corrente</label>
-        <label><input type="checkbox" name="itens" value="Luzes de Alerta do Painel"> Luzes de Alerta do Painel</label>
-        <label><input type="checkbox" name="itens" value="Chave de Roda"> Chave de Roda</label>
-        <label><input type="checkbox" name="itens" value="Triângulo"> Triângulo</label>
-        <label><input type="checkbox" name="itens" value="Pneu de Estepe"> Pneu de Estepe</label>
-        <label><input type="checkbox" name="itens" value="Macaco"> Macaco</label>
-        <label><input type="checkbox" name="itens" value="Tapetes"> Tapetes</label>
-        <label><input type="checkbox" name="itens" value="Vidro Elétrico"> Vidro Elétrico</label>
-        <label><input type="checkbox" name="itens" value="Película nos Vidros"> Película nos Vidros</label>
-        <label><input type="checkbox" name="itens" value="Extintor de Incêndio"> Extintor de Incêndio</label>
-        <label><input type="checkbox" name="itens" value="Farois"> Farois</label>
-        <label><input type="checkbox" name="itens" value="Setas"> Setas</label>
-        <label><input type="checkbox" name="itens" value="Pisca Alerta"> Pisca Alerta</label>
-        <label><input type="checkbox" name="itens" value="Lanterna Traseira"> Lanterna Traseira</label>
+        <div class="item">
+          <label><input type="checkbox" name="itens" value="Sistema de Alarme"> Sistema de Alarme</label>
+          <span class="icone-observacao" data-item="Sistema de Alarme">📝</span>
+          <textarea class="obs-item" data-item="Sistema de Alarme" placeholder="Observação..." style="display: none;"></textarea>
+        </div>
+
+        <div class="item">
+          <label><input type="checkbox" name="itens" value="Corta Corrente"> Corta Corrente</label>
+          <span class="icone-observacao" data-item="Corta Corrente">📝</span>
+          <textarea class="obs-item" data-item="Corta Corrente" placeholder="Observação..." style="display: none;"></textarea>
+        </div>
+
+        <div class="item">
+          <label><input type="checkbox" name="itens" value="Luzes de Alerta do Painel"> Luzes de Alerta do Painel</label>
+          <span class="icone-observacao" data-item="Luzes de Alerta do Painel">📝</span>
+          <textarea class="obs-item" data-item="Luzes de Alerta do Painel" placeholder="Observação..." style="display: none;"></textarea>
+        </div>
+
+        <!-- Adicione outros itens seguindo esse mesmo padrão -->
       </div>
 
-      <textarea id="observacao" placeholder="Observação"></textarea>
+      <textarea id="observacao" placeholder="Observação geral"></textarea>
 
       <button type="submit" class="btn-yellow">CONFIRMAR</button>
     </form>
