@@ -57,6 +57,19 @@ body {
     width: 100%;
   }
   
+  input[type="file"] {
+    padding: 12px;
+    border: none;
+    background-color: #ffc107;
+    color: #000;
+    font-weight: bold;
+    border-radius: 30px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
   input:focus {
     border-color: #ffc107;
     outline: none;
@@ -94,22 +107,5 @@ body {
     max-width: 100%;
     border-radius: 10px;
     display: block;
-  }
-  
-  .btn-captura {
-    background-color: #ffc107;
-    display: inline-block;
-    padding: 10px 20px;
-    font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s;
-    color: #000;
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .btn-captura:hover {
-    background-color: #e0ac00;
   }
   
