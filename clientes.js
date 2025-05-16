@@ -1,68 +1,88 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
 
-async function carregarClientes() {
+document.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  if (!id) {
+    alert('ID do cliente não informado.');
+    window.location.href = 'clientes.html';
+    return;
+  }
+
+  const nomeInput = document.getElementById('nomeCliente');
+  const emailInput = document.getElementById('emailCliente');
+  const telefoneInput = document.getElementById('telefoneCliente');
+  const btnEditar = document.getElementById('btn-editar');
+  const btnSalvar = document.getElementById('btn-salvar');
+  const btnConfirmar = document.getElementById('btn-confirmar');
+
+  // Carregar dados do cliente
   try {
-    const response = await fetch(`${BACKEND_URL}/api/clientes`);
-    const clientes = await response.json();
+    const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`);
+    const cliente = await response.json();
 
     if (!response.ok) {
-      alert('Erro ao buscar clientes');
+      alert(cliente.message || 'Erro ao buscar cliente');
       return;
     }
 
-    clientes.sort((a, b) => a.nome.localeCompare(b.nome));
+    nomeInput.value = cliente.nome || '';
+    emailInput.value = cliente.email || '';
+    telefoneInput.value = cliente.telefone || '';
+  } catch (error) {
+    console.error('Erro ao carregar cliente:', error);
+    alert('Erro de conexão com o servidor');
+  }
 
-    const lista = document.getElementById('lista-clientes');
-    lista.innerHTML = '';
+  // Editar modo
+  btnEditar.addEventListener('click', () => {
+    nomeInput.removeAttribute('readonly');
+    emailInput.removeAttribute('readonly');
+    telefoneInput.removeAttribute('readonly');
+    btnEditar.style.display = 'none';
+    btnConfirmar.style.display = 'none';
+    btnSalvar.style.display = 'block';
+  });
 
-    clientes.forEach(cliente => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <span>${cliente.nome}</span>
-        <div class="actions">
-          <a href="dados-cliente.html?id=${cliente._id}" title="Selecionar">✅</a>
-          <button title="Excluir" onclick="excluirCliente('${cliente._id}')">❌</button>
-        </div>
-      `;
-      lista.appendChild(li);
-    });
+    // Confirmar sem editar
+    // Confirmar → redireciona para veiculos.html com o ID
+    btnConfirmar.addEventListener('click', () => {
+      window.location.href = `veiculos.html?id=${id}`;
+  });
 
-    document.getElementById('pesquisa').addEventListener('input', (e) => {
-      const termo = e.target.value.toLowerCase();
-      const itens = lista.querySelectorAll('li');
-      itens.forEach(item => {
-        const nome = item.querySelector('span').textContent.toLowerCase();
-        item.style.display = nome.includes(termo) ? 'flex' : 'none';
+  // Salvar alterações
+  document.getElementById('form-edicao').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const nome = nomeInput.value.trim();
+    const email = emailInput.value.trim();
+    const telefone = telefoneInput.value.trim();
+
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, telefone })
       });
-    });
 
-  } catch (error) {
-    console.error('Erro ao carregar clientes:', error);
-    alert('Erro de conexão com o servidor');
-  }
-}
+      const result = await response.json();
 
-async function excluirCliente(id) {
-  const confirmacao = confirm('Tem certeza que deseja excluir este cliente?');
-  if (!confirmacao) return;
-
-  try {
-    const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
-      method: 'DELETE'
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert('Cliente excluído com sucesso!');
-      carregarClientes();
-    } else {
-      alert(result.message || 'Erro ao excluir cliente');
+      if (response.ok) {
+        alert('Dados atualizados com sucesso!');
+        // Volta ao modo leitura
+        nomeInput.setAttribute('readonly', true);
+        emailInput.setAttribute('readonly', true);
+        telefoneInput.setAttribute('readonly', true);
+        btnSalvar.style.display = 'none';
+        btnEditar.style.display = 'block';
+        btnConfirmar.style.display = 'block';
+      } else {
+        alert(result.message || 'Erro ao atualizar cliente');
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar cliente:', error);
+      alert('Erro de conexão com o servidor');
     }
-  } catch (error) {
-    console.error('Erro ao excluir cliente:', error);
-    alert('Erro de conexão com o servidor');
-  }
-}
-
-document.addEventListener('DOMContentLoaded', carregarClientes);
+  });
+});
