@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inspeção de Avarias</title>
+  <link rel="stylesheet" href="avarias.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Logo G85" class="logo" />
+    </header>
+
+    <h2>Inspeção de Avarias</h2>
+
+    <form id="form-avarias">
+      <div class="foto-bloco" data-label="Frente">
+        <img src="frente.png" class="foto" id="img-frente" />
+        <input type="file" accept="image/*" capture="environment" id="input-frente" style="display: none;" />
+        <span class="icone-observacao" data-item="frente">📝</span>
+        <textarea class="obs-item" data-item="frente" placeholder="Observação..." style="display: none;"></textarea>
+      </div>
+
+      <div class="foto-bloco" data-label="Lado Direito">
+        <img src="lado_direito.png" class="foto" id="img-direito" />
+        <input type="file" accept="image/*" capture="environment" id="input-direito" style="display: none;" />
+        <span class="icone-observacao" data-item="direito">📝</span>
+        <textarea class="obs-item" data-item="direito" placeholder="Observação..." style="display: none;"></textarea>
+      </div>
+
+      <div class="foto-bloco" data-label="Lado Esquerdo">
+        <img src="lado_esquerdo.png" class="foto" id="img-esquerdo" />
+        <input type="file" accept="image/*" capture="environment" id="input-esquerdo" style="display: none;" />
+        <span class="icone-observacao" data-item="esquerdo">📝</span>
+        <textarea class="obs-item" data-item="esquerdo" placeholder="Observação..." style="display: none;"></textarea>
+      </div>
+
+      <div class="foto-bloco" data-label="Traseira">
+        <img src="traseira.png" class="foto" id="img-traseira" />
+        <input type="file" accept="image/*" capture="environment" id="input-traseira" style="display: none;" />
+        <span class="icone-observacao" data-item="traseira">📝</span>
+        <textarea class="obs-item" data-item="traseira" placeholder="Observação..." style="display: none;"></textarea>
+      </div>
+
+      <div class="foto-bloco" data-label="Topo">
+        <img src="topo.png" class="foto" id="img-topo" />
+        <input type="file" accept="image/*" capture="environment" id="input-topo" style="display: none;" />
+        <span class="icone-observacao" data-item="topo">📝</span>
+        <textarea class="obs-item" data-item="topo" placeholder="Observação..." style="display: none;"></textarea>
+      </div>
+
+      <button type="submit" class="btn-yellow">Cadastrar</button>
+    </form>
+
+    <footer>
+      <a id="btn-voltar" class="voltar">Voltar</a>
+    </footer>
+  </div>
+  <script src="avarias.js"></script>
+</body>
+</html>
