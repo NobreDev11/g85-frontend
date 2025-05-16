@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const obs = document.querySelector(`.obs-item[data-item="${campo}"]`);
 
     img.addEventListener('click', () => input.click());
+
     input.addEventListener('change', () => {
       const file = input.files[0];
       if (file) {
@@ -40,6 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('form-avarias').addEventListener('submit', (e) => {
     e.preventDefault();
     alert('Avarias registradas com sucesso!');
-    // Aqui você pode enviar os dados para o backend
+    // Aqui será feita a integração com o backend
   });
 });

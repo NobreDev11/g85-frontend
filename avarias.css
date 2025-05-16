@@ -32,6 +32,9 @@ h2 {
   border: 1px solid #ccc;
   cursor: pointer;
 }
+.inverter {
+  transform: scaleX(-1);
+}
 .icone-observacao {
   position: absolute;
   bottom: 5px;
