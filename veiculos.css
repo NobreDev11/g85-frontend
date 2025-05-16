@@ -41,36 +41,51 @@ li {
   margin-bottom: 10px;
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-li label {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-}
-
-li input[type="radio"] {
-  margin-right: 10px;
-  transform: scale(1.2);
   cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
 }
 
-li button {
+li.selecionado {
+  background-color: #fff3cd;
+}
+
+li h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+li .info {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+  display: none;
+}
+
+li.selecionado .info {
+  display: block;
+}
+
+li .acoes {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+li .acoes button {
   background: none;
   border: none;
-  font-size: 20px;
-  color: #666;
+  font-size: 16px;
   cursor: pointer;
-  padding: 5px;
-  transition: color 0.2s ease;
+  color: #666;
+  transition: color 0.2s;
 }
 
-li button:hover {
+li .acoes button:hover {
   color: #ffc107;
 }
 

@@ -14,14 +14,12 @@
 
     <h2>Veículos Cadastrados</h2>
 
-    <form id="form-veiculos">
-      <ul id="lista-veiculos"></ul>
+    <ul id="lista-veiculos"></ul>
 
-      <div class="botoes">
-        <button type="submit" class="btn-yellow">Confirmar</button>
-        <button type="button" class="btn-gray" onclick="cadastrarVeiculo()">Cadastrar Novo Veículo</button>
-      </div>
-    </form>
+    <div class="botoes">
+      <button onclick="confirmarSelecao()" class="btn-yellow">Confirmar</button>
+      <button onclick="cadastrarVeiculo()" class="btn-gray">Cadastrar Novo Veículo</button>
+    </div>
 
     <footer>
       <a id="link-voltar" class="voltar">Voltar</a>

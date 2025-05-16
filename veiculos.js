@@ -1,12 +1,11 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
+let veiculos = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
   const params = new URLSearchParams(window.location.search);
   const clienteId = params.get('id');
-
   const lista = document.getElementById('lista-veiculos');
   const voltarLink = document.getElementById('link-voltar');
-  const formVeiculos = document.getElementById('form-veiculos');
 
   if (!clienteId) {
     alert('Cliente não identificado.');
@@ -14,28 +13,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  if (voltarLink) {
-    voltarLink.href = `dados-cliente.html?id=${clienteId}`;
-  }
+  voltarLink.href = `dados-cliente.html?id=${clienteId}`;
 
   try {
     const response = await fetch(`${BACKEND_URL}/api/veiculos?cliente=${clienteId}`);
-    const veiculos = await response.json();
+    veiculos = await response.json();
 
     lista.innerHTML = '';
 
     if (Array.isArray(veiculos) && veiculos.length > 0) {
       veiculos.forEach((v) => {
         const li = document.createElement('li');
+        li.setAttribute('data-id', v._id);
         li.innerHTML = `
-          <label>
-            <span style="display: flex; align-items: center;">
-              <input type="radio" name="veiculoSelecionado" value="${v._id}" />
-              ${v.modelo || 'Veículo'}
-            </span>
-            <button type="button" onclick="editarVeiculo('${v._id}', '${clienteId}')">✏️</button>
-          </label>
+          <h3>${v.modelo}</h3>
+          <div class="info">Placa: ${v.placa || '-'}<br/>Cor: ${v.cor || '-'}</div>
+          <div class="acoes">
+            <button onclick="editarVeiculo('${v._id}', '${clienteId}')">✏️</button>
+            <button onclick="excluirVeiculo('${v._id}', '${clienteId}')">🗑️</button>
+          </div>
         `;
+        li.addEventListener('click', () => selecionarVeiculo(li));
         lista.appendChild(li);
       });
     } else {
@@ -47,21 +45,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Erro ao carregar veículos:', err);
     alert('Erro ao carregar veículos.');
   }
-
-  formVeiculos.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const selecionado = document.querySelector('input[name="veiculoSelecionado"]:checked');
-
-    if (!selecionado) {
-      alert('Selecione um veículo para continuar.');
-      return;
-    }
-
-    const veiculoId = selecionado.value;
-    window.location.href = `servico.html?id=${veiculoId}`;
-  });
 });
+
+function selecionarVeiculo(liSelecionado) {
+  document.querySelectorAll('#lista-veiculos li').forEach((li) => {
+    li.classList.remove('selecionado');
+  });
+  liSelecionado.classList.add('selecionado');
+}
+
+function confirmarSelecao() {
+  const selecionado = document.querySelector('#lista-veiculos li.selecionado');
+  if (!selecionado) {
+    alert('Selecione um veículo.');
+    return;
+  }
+
+  const veiculoId = selecionado.getAttribute('data-id');
+  window.location.href = `servico.html?id=${veiculoId}`;
+}
 
 function cadastrarVeiculo() {
   const params = new URLSearchParams(window.location.search);
@@ -69,6 +71,28 @@ function cadastrarVeiculo() {
   window.location.href = `cadastrar-veiculo.html?id=${clienteId}`;
 }
 
-function editarVeiculo(veiculoId, clienteId) {
-  window.location.href = `editar-veiculo.html?id=${veiculoId}&cliente=${clienteId}`;
+function editarVeiculo(id, clienteId) {
+  window.location.href = `editar-veiculo.html?id=${id}&cliente=${clienteId}`;
+}
+
+async function excluirVeiculo(id, clienteId) {
+  if (!confirm('Tem certeza que deseja excluir este veículo?')) return;
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/veiculos/${id}`, {
+      method: 'DELETE'
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('Veículo excluído com sucesso!');
+      location.reload();
+    } else {
+      alert(result.message || 'Erro ao excluir veículo');
+    }
+  } catch (error) {
+    console.error('Erro ao excluir veículo:', error);
+    alert('Erro de conexão com o servidor');
+  }
 }
