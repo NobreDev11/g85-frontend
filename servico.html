@@ -32,9 +32,10 @@
         <input type="number" id="km" placeholder="Digite a quilometragem atual" required>
       </div>
       <div class="campo">
-        <label>Anexar foto do painel:</label>
-        <input type="file" id="imagem" accept="image/*" capture="environment">
-        <img id="preview" src="" alt="Pré-visualização" style="display:none;">
+        <label>Foto do painel:</label>
+        <input type="file" id="imagem" accept="image/*" style="display: none;">
+        <label for="imagem" class="btn-captura">📸 Tirar ou Escolher Foto</label>
+        <img id="preview" src="" alt="Pré-visualização" style="display: none;">
       </div>
       <button type="submit" class="btn-yellow">Confirmar</button>
     </form>
