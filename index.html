@@ -16,7 +16,7 @@
 
     <form id="login-form">
       <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="senha" placeholder="Senha" required />
+      <input type="password" id="password" placeholder="Senha" required />
       <button type="submit" class="btn-yellow">Entrar</button>
     </form>
 
@@ -28,29 +28,31 @@
   <script>
     const BACKEND_URL = 'https://g85-backend.onrender.com';
 
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
+    document.getElementById('login-form').addEventListener('submit', async function (e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
-      const senha = document.getElementById('senha').value.trim();
+      const password = document.getElementById('password').value.trim();
 
       try {
         const response = await fetch(`${BACKEND_URL}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password: senha })
+          body: JSON.stringify({ email, password })
         });
 
         const result = await response.json();
 
         if (response.ok) {
-          localStorage.setItem('usuarioNome', result.nome || 'Usuário');
+          localStorage.setItem('token', result.token);              // 🔐 salva token
+          localStorage.setItem('usuarioNome', result.nome);         // salva nome do usuário
+          alert('Login realizado com sucesso!');
           window.location.href = 'home.html';
         } else {
-          alert(result.message || 'Login inválido.');
+          alert(result.message || 'Erro no login');
         }
       } catch (error) {
         console.error('Erro de conexão:', error);
-        alert('Erro de conexão com o servidor.');
+        alert('Erro de conexão com o servidor');
       }
     });
   </script>

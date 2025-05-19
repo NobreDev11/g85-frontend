@@ -1,12 +1,24 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Usuário não autenticado. Faça login novamente.');
+    window.location.href = 'index.html';
+    return;
+  }
+
   const lista = document.getElementById('lista-clientes');
   const busca = document.getElementById('buscaCliente');
 
   async function carregarClientes() {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/clientes`);
+      const res = await fetch(`${BACKEND_URL}/api/clientes`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       const clientes = await res.json();
 
       if (!res.ok) {
@@ -40,7 +52,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   busca.addEventListener('input', async () => {
     const termo = busca.value.toLowerCase();
-    const res = await fetch(`${BACKEND_URL}/api/clientes`);
+
+    const res = await fetch(`${BACKEND_URL}/api/clientes`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
     const clientes = await res.json();
     const filtrados = clientes.filter(c => c.nome.toLowerCase().includes(termo));
     exibirClientes(filtrados);
@@ -55,7 +73,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
       const res = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (res.ok) {

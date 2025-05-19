@@ -1,6 +1,13 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Usuário não autenticado.');
+    window.location.href = 'index.html';
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
 
@@ -17,9 +24,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnSalvar = document.getElementById('btn-salvar');
   const btnConfirmar = document.getElementById('btn-confirmar');
 
-  // Carrega dados do cliente
   try {
-    const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`);
+    const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
     const cliente = await response.json();
 
     if (!response.ok) {
@@ -35,7 +44,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     alert('Erro de conexão com o servidor');
   }
 
-  // Editar
   btnEditar.addEventListener('click', () => {
     nomeInput.removeAttribute('readonly');
     emailInput.removeAttribute('readonly');
@@ -45,12 +53,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     btnSalvar.style.display = 'block';
   });
 
-  // Confirmar
   btnConfirmar.addEventListener('click', () => {
     window.location.href = `veiculos.html?id=${id}`;
   });
 
-  // Salvar alterações
   document.getElementById('form-edicao').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -61,7 +67,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await fetch(`${BACKEND_URL}/api/clientes/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({ nome, email, telefone })
       });
 
@@ -84,7 +93,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // Botão voltar
   document.getElementById('btn-voltar').addEventListener('click', () => {
     window.location.href = 'clientes.html';
   });

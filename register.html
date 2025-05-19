@@ -17,7 +17,7 @@
     <form id="register-form">
       <input type="text" id="nome" placeholder="Nome completo" required />
       <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="senha" placeholder="Senha" required />
+      <input type="password" id="password" placeholder="Senha" required />
       <button type="submit" class="btn-yellow">Cadastrar</button>
     </form>
 
@@ -29,31 +29,48 @@
   <script>
     const BACKEND_URL = 'https://g85-backend.onrender.com';
 
-    document.getElementById('register-form').addEventListener('submit', async (e) => {
+    document.getElementById('register-form').addEventListener('submit', async function (e) {
       e.preventDefault();
-
       const nome = document.getElementById('nome').value.trim();
       const email = document.getElementById('email').value.trim();
-      const senha = document.getElementById('senha').value.trim();
+      const password = document.getElementById('password').value.trim();
 
       try {
-        const response = await fetch(`${BACKEND_URL}/api/register`, {
+        // 1. Registrar o usuário
+        const registro = await fetch(`${BACKEND_URL}/api/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome, email, password: senha })
+          body: JSON.stringify({ nome, email, password })
         });
 
-        const result = await response.json();
+        const regData = await registro.json();
 
-        if (response.ok) {
-          alert('Usuário cadastrado com sucesso!');
-          window.location.href = 'index.html';
-        } else {
-          alert(result.message || 'Erro ao cadastrar usuário.');
+        if (!registro.ok) {
+          alert(regData.message || 'Erro ao cadastrar usuário');
+          return;
         }
+
+        // 2. Logar automaticamente
+        const login = await fetch(`${BACKEND_URL}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const loginData = await login.json();
+
+        if (login.ok) {
+          localStorage.setItem('token', loginData.token);
+          localStorage.setItem('usuarioNome', loginData.nome);
+          alert('Usuário cadastrado e logado com sucesso!');
+          window.location.href = 'home.html';
+        } else {
+          alert(loginData.message || 'Erro no login após cadastro');
+        }
+
       } catch (error) {
-        console.error('Erro ao cadastrar usuário:', error);
-        alert('Erro de conexão com o servidor.');
+        console.error('Erro na requisição:', error);
+        alert('Erro de conexão com o servidor');
       }
     });
   </script>

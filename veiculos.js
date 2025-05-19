@@ -2,6 +2,13 @@ const BACKEND_URL = 'https://g85-backend.onrender.com';
 let veiculos = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Usuário não autenticado.');
+    window.location.href = 'index.html';
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const clienteId = params.get('id');
   const lista = document.getElementById('lista-veiculos');
@@ -16,9 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   voltarLink.href = `dados-cliente.html?id=${clienteId}`;
 
   try {
-    const response = await fetch(`${BACKEND_URL}/api/veiculos?cliente=${clienteId}`);
-    veiculos = await response.json();
+    const response = await fetch(`${BACKEND_URL}/api/veiculos?cliente=${clienteId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
+    veiculos = await response.json();
     lista.innerHTML = '';
 
     if (Array.isArray(veiculos) && veiculos.length > 0) {
@@ -49,11 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function selecionarVeiculo(liSelecionado) {
   const todos = document.querySelectorAll('#lista-veiculos li');
-
-  todos.forEach((li) => {
-    li.classList.remove('selecionado');
-  });
-
+  todos.forEach((li) => li.classList.remove('selecionado'));
   liSelecionado.classList.add('selecionado');
 }
 
@@ -79,11 +84,13 @@ function editarVeiculo(id, clienteId) {
 }
 
 async function excluirVeiculo(id, clienteId) {
+  const token = localStorage.getItem('token');
   if (!confirm('Tem certeza que deseja excluir este veículo?')) return;
 
   try {
     const response = await fetch(`${BACKEND_URL}/api/veiculos/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     const result = await response.json();

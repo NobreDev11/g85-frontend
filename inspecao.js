@@ -1,6 +1,13 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Usuário não autenticado.');
+    window.location.href = 'index.html';
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const veiculoId = params.get('id');
 
@@ -16,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const dadosSalvos = sessionStorage.getItem(STORAGE_KEY);
   if (dadosSalvos) {
     const dados = JSON.parse(dadosSalvos);
-
-    // Marcar checkboxes
     if (Array.isArray(dados.itens)) {
       dados.itens.forEach(item => {
         const checkbox = document.querySelector(`input[name="itens"][value="${item}"]`);
@@ -25,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Preencher observações extras
     if (dados.extras) {
       Object.keys(dados.extras).forEach(chave => {
         const textarea = document.querySelector(`.obs-item[data-item="${chave}"]`);
@@ -36,14 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Observação geral
     if (dados.observacao) {
       const obsGeral = document.getElementById('observacao');
       if (obsGeral) obsGeral.value = dados.observacao;
     }
   }
 
-  // Função para salvar dados
   function salvarSession() {
     const checkboxes = document.querySelectorAll('input[name="itens"]:checked');
     const itensSelecionados = Array.from(checkboxes).map(cb => cb.value);
@@ -64,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
-  // Salvar ao interagir
   document.querySelectorAll('input[name="itens"]').forEach(input => {
     input.addEventListener('change', salvarSession);
   });
@@ -76,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const obsGeral = document.getElementById('observacao');
   if (obsGeral) obsGeral.addEventListener('input', salvarSession);
 
-  // Ativar ícones de observação
   document.querySelectorAll('.icone-observacao').forEach(icone => {
     const item = icone.dataset.item;
     const textarea = document.querySelector(`.obs-item[data-item="${item}"]`);
@@ -96,12 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Voltar
   document.getElementById('btn-voltar').addEventListener('click', () => {
     window.location.href = `servico.html?id=${veiculoId}`;
   });
 
-  // Envio do formulário
   document.getElementById('form-inspecao').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -124,7 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch(`${BACKEND_URL}/api/inspecoes`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({
           veiculo: veiculoId,
           itens: itensSelecionados,

@@ -1,6 +1,13 @@
 const BACKEND_URL = 'https://g85-backend.onrender.com';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Usuário não autenticado.');
+    window.location.href = 'index.html';
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const veiculoId = params.get('id');
 
@@ -18,10 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const previewImg = document.getElementById('preview');
   const voltarLink = document.getElementById('btn-voltar');
 
-  // ✅ Corrigido: Voltar leva para página de veículos com ID
   voltarLink.href = `veiculos.html?id=${veiculoId}`;
 
-  // Preenche dados se vier do voltar
   const dadosSalvos = sessionStorage.getItem('dadosServico');
   if (dadosSalvos) {
     const dados = JSON.parse(dadosSalvos);
@@ -35,7 +40,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const res = await fetch(`${BACKEND_URL}/api/veiculos/${veiculoId}`);
+    const res = await fetch(`${BACKEND_URL}/api/veiculos/${veiculoId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     const veiculo = await res.json();
 
     if (res.ok) {
@@ -76,7 +85,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const res = await fetch(`${BACKEND_URL}/api/servicos`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({
           veiculo: veiculoId,
           km,
