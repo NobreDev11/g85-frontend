@@ -19,7 +19,7 @@
       if (!res.ok) throw new Error();
 
       const dados = await res.json();
-      document.querySelector('h2').textContent = `Bem-vindo(a), ${dados.usuario.nome || 'Usuário'}`;
+        document.querySelector('h2').textContent = `Bem-vindo(a), ${dados.nome || 'Usuário'}`;
     } catch (err) {
       alert('Sessão expirada. Faça login novamente.');
       localStorage.clear();
