@@ -1,31 +1,24 @@
-<script>
-  const BACKEND_URL = 'https://g85-backend.onrender.com';
-  const token = localStorage.getItem('token');
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home - G85 Studio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Logo G85 Studio" class="logo" />
+    </header>
 
-  async function verificarToken() {
-    if (!token) {
-      alert('Você precisa estar logado.');
-      window.location.href = 'index.html';
-      return;
-    }
+    <h2 id="saudacao">Carregando...</h2>
 
-    try {
-      const res = await fetch(`${BACKEND_URL}/api/perfil`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+    <p>Bem-vindo ao sistema G85 Studio.</p>
 
-      if (!res.ok) throw new Error();
+    <button onclick="logout()" class="btn-yellow">Sair</button>
+  </div>
 
-      const dados = await res.json();
-        document.querySelector('h2').textContent = `Bem-vindo(a), ${dados.nome || 'Usuário'}`;
-    } catch (err) {
-      alert('Sessão expirada. Faça login novamente.');
-      localStorage.clear();
-      window.location.href = 'index.html';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', verificarToken);
-</script>
+  <script src="home.js"></script>
+</body>
+</html>
